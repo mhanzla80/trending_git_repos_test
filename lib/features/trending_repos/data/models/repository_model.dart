@@ -21,7 +21,7 @@ class RepositoryModel {
   final int openIssues;
   final String language;
 
-  RepositoryModel({
+  const RepositoryModel({
     required this.id,
     required this.name,
     required this.fullName,
@@ -47,10 +47,7 @@ class Owner {
   @JsonKey(name: 'avatar_url')
   final String avatarUrl;
 
-  Owner({
-    required this.login,
-    required this.avatarUrl,
-  });
+  const Owner({required this.login, required this.avatarUrl});
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
 
@@ -62,10 +59,7 @@ class License {
   final String key;
   final String name;
 
-  License({
-    required this.key,
-    required this.name,
-  });
+  const License({required this.key, required this.name});
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);
