@@ -6,14 +6,15 @@ class ShimmerLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shimmerColor = Theme.of(context).disabledColor;
     return ListView.builder(
       itemCount: 10,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
+            baseColor: shimmerColor,
+            highlightColor: shimmerColor.withOpacity(0.6),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -22,7 +23,7 @@ class ShimmerLoader extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: shimmerColor,
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
@@ -36,14 +37,14 @@ class ShimmerLoader extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         height: 16,
-                        color: Colors.white,
+                        color: shimmerColor,
                       ),
                       const SizedBox(height: 8),
                       // Subtitle shimmer
                       Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         height: 16,
-                        color: Colors.white,
+                        color: shimmerColor,
                       ),
                       const SizedBox(height: 8),
                       // Info chip shimmer
@@ -68,11 +69,12 @@ class ShimmerLoader extends StatelessWidget {
   }
 
   Widget _buildShimmerChip(BuildContext context) {
+    final shimmerColor = Theme.of(context).colorScheme.inverseSurface;
     return Container(
       width: 50,
       height: 16,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: shimmerColor,
         borderRadius: BorderRadius.circular(8),
       ),
     );
