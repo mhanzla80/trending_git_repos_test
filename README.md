@@ -19,34 +19,36 @@ samples, guidance on mobile development, and a full API reference.
 
 ```bash
 lib/
-├── main.dart
-├── core/
-│   ├── network/
-│   │   ├── api_client.dart
-│   │   └── api_constants.dart
-│   ├── theme/
-│   │   └── app_theme.dart
-│   └── utils/
-│       └── extensions.dart
-├── features/
-│   ├── trending_repos/
-│   │   ├── data/
-│   │   │   ├── models/
-│   │   │   │   └── repository_model.dart
-│   │   │   ├── repositories/
-│   │   │   │   ├── i_trending_repository.dart
-│   │   │   │   └── trending_repository_impl.dart
-│   │   ├── domain/
-│   │   │   └── usecases/
-│   │   │       └── fetch_trending_repos_usecase.dart
-│   │   └── presentation/
-│   │       ├── screens/
-│   │       │   └── trending_screen.dart
-│   │       ├── providers/
-│   │       │   └── trending_providers.dart
-│   │       └── widgets/
-│   │           ├── repo_item.dart
-│   │           ├── shimmer_loader.dart
-│   │           └── error_state_widget.dart
+├── main.dart                            # Entry point of the application
+├── core/                                # Core functionality and shared utilities
+│   ├── injector.dart                    # Centralized dependency injector
+│   ├── network/                         # Networking layer
+│   │   ├── api_client.dart              # API client with interface
+│   │   └── api_constants.dart           # API endpoint constants
+│   ├── theme/                           # App theming
+│   │   └── app_theme.dart               # Light and dark themes
+│   └── utils/                           # Utility classes and extensions
+│       └── extensions.dart              # Custom Dart extensions (optional)
+├── features/                            # Features/modules of the app
+│   ├── trending_repos/                  # Trending repositories feature
+│   │   ├── data/                        # Data layer
+│   │   │   ├── models/                  # Data models
+│   │   │   │   └── repository_model.dart # Repository data model
+│   │   │   ├── repositories/            # Repository implementations
+│   │   │   │   ├── i_trending_repository.dart # Repository interface
+│   │   │   │   └── trending_repository_impl.dart # Repository implementation
+│   │   ├── domain/                      # Business logic layer
+│   │   │   └── usecases/                # Use cases
+│   │   │       └── fetch_trending_repos_usecase.dart # Fetch trending repos use case
+│   │   └── presentation/                # Presentation layer (UI)
+│   │       ├── screens/                 # Screens for the feature
+│   │       │   └── trending_screen.dart # Main screen for trending repositories
+│   │       ├── providers/               # State management providers
+│   │       │   └── trending_providers.dart # Providers for Riverpod
+│   │       └── widgets/                 # Custom UI widgets
+│   │           ├── repo_item.dart       # Repository list item widget
+│   │           ├── shimmer_loader.dart  # Shimmer loading animation
+│   │           └── error_state_widget.dart # Error state with retry button
+└── pubspec.yaml                         # Dependency management file
 
 ```
