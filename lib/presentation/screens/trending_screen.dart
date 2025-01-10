@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trending_git_repos_test/core/exceptions/no_internet_exception.dart';
 import 'package:trending_git_repos_test/presentation/providers/trending_providers.dart';
 import 'package:trending_git_repos_test/presentation/widgets/error_state_widget.dart';
 import 'package:trending_git_repos_test/presentation/widgets/repo_item.dart';
@@ -31,13 +32,21 @@ class TrendingScreen extends ConsumerWidget {
           );
         },
         loading: () => const ShimmerLoader(),
-        error: (error, stack) => ErrorStateWidget(
-          errorMessage: error.toString(),
-          onRetry: () {
-            ref.refresh(TrendingProviders.trendingReposProvider);
-          },
-        ),
+        error: (error, _) => _handleErrorState(error, _, ref),
       ),
+    );
+  }
+
+  Widget _handleErrorState(Object error, StackTrace stackTrace, WidgetRef ref) {
+    String errorMessage = 'Something went wrong';
+    if (error is NoInternetException) {
+      errorMessage = error.message;
+    }
+    return ErrorStateWidget(
+      errorMessage: errorMessage,
+      onRetry: () {
+        ref.invalidate(TrendingProviders.trendingReposProvider);
+      },
     );
   }
 }
