@@ -8,19 +8,21 @@ part of 'repository_model.dart';
 
 RepositoryModel _$RepositoryModelFromJson(Map<String, dynamic> json) =>
     RepositoryModel(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      fullName: json['full_name'] as String,
-      htmlUrl: json['html_url'] as String,
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      fullName: json['full_name'] as String?,
+      htmlUrl: json['html_url'] as String?,
       description: json['description'] as String?,
-      owner: Owner.fromJson(json['owner'] as Map<String, dynamic>),
+      owner: json['owner'] == null
+          ? null
+          : Owner.fromJson(json['owner'] as Map<String, dynamic>),
       license: json['license'] == null
           ? null
           : License.fromJson(json['license'] as Map<String, dynamic>),
-      stars: (json['stargazers_count'] as num).toInt(),
-      forks: (json['forks_count'] as num).toInt(),
-      openIssues: (json['open_issues_count'] as num).toInt(),
-      language: json['language'] as String,
+      stars: (json['stargazers_count'] as num?)?.toInt() ?? 0,
+      forks: (json['forks_count'] as num?)?.toInt() ?? 0,
+      openIssues: (json['open_issues_count'] as num?)?.toInt() ?? 0,
+      language: json['language'] as String?,
     );
 
 Map<String, dynamic> _$RepositoryModelToJson(RepositoryModel instance) =>
@@ -39,8 +41,8 @@ Map<String, dynamic> _$RepositoryModelToJson(RepositoryModel instance) =>
     };
 
 Owner _$OwnerFromJson(Map<String, dynamic> json) => Owner(
-      login: json['login'] as String,
-      avatarUrl: json['avatar_url'] as String,
+      login: json['login'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
     );
 
 Map<String, dynamic> _$OwnerToJson(Owner instance) => <String, dynamic>{
@@ -49,8 +51,8 @@ Map<String, dynamic> _$OwnerToJson(Owner instance) => <String, dynamic>{
     };
 
 License _$LicenseFromJson(Map<String, dynamic> json) => License(
-      key: json['key'] as String,
-      name: json['name'] as String,
+      key: json['key'] as String?,
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$LicenseToJson(License instance) => <String, dynamic>{

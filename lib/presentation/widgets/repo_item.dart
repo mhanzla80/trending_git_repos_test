@@ -19,7 +19,9 @@ class RepoItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(repo.owner.avatarUrl),
+              backgroundImage: NetworkImage(
+                repo.owner?.avatarUrl ?? 'https://via.placeholder.com/150',
+              ),
               radius: 30,
             ),
             const SizedBox(width: 12),
@@ -28,11 +30,13 @@ class RepoItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    repo.name,
+                    repo.name ?? 'Unknown Repository',
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
                         ?.copyWith(fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -42,15 +46,16 @@ class RepoItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 8),
-                  Row(
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
                     children: [
                       _buildInfoChip(
                           context, Icons.star, '${repo.stars} Stars'),
-                      const SizedBox(width: 8),
                       _buildInfoChip(
                           context, Icons.fork_right, '${repo.forks} Forks'),
-                      const SizedBox(width: 8),
-                      _buildInfoChip(context, Icons.code, repo.language),
+                      _buildInfoChip(
+                          context, Icons.code, repo.language ?? 'Unknown'),
                     ],
                   ),
                 ],
@@ -64,10 +69,17 @@ class RepoItem extends StatelessWidget {
 
   Widget _buildInfoChip(BuildContext context, IconData icon, String label) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, size: 16, color: Theme.of(context).colorScheme.secondary),
         const SizedBox(width: 4),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
+        Flexible(
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }

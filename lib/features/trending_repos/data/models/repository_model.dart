@@ -4,35 +4,35 @@ part 'repository_model.g.dart';
 
 @JsonSerializable()
 class RepositoryModel {
-  final int id;
-  final String name;
+  final int? id;
+  final String? name;
   @JsonKey(name: 'full_name')
-  final String fullName;
+  final String? fullName;
   @JsonKey(name: 'html_url')
-  final String htmlUrl;
+  final String? htmlUrl;
   final String? description;
-  final Owner owner;
+  final Owner? owner;
   final License? license;
-  @JsonKey(name: 'stargazers_count')
+  @JsonKey(name: 'stargazers_count', defaultValue: 0)
   final int stars;
-  @JsonKey(name: 'forks_count')
+  @JsonKey(name: 'forks_count', defaultValue: 0)
   final int forks;
-  @JsonKey(name: 'open_issues_count')
+  @JsonKey(name: 'open_issues_count', defaultValue: 0)
   final int openIssues;
-  final String language;
+  final String? language;
 
   const RepositoryModel({
-    required this.id,
-    required this.name,
-    required this.fullName,
-    required this.htmlUrl,
+    this.id,
+    this.name,
+    this.fullName,
+    this.htmlUrl,
     this.description,
-    required this.owner,
+    this.owner,
     this.license,
-    required this.stars,
-    required this.forks,
-    required this.openIssues,
-    required this.language,
+    this.stars = 0,
+    this.forks = 0,
+    this.openIssues = 0,
+    this.language,
   });
 
   factory RepositoryModel.fromJson(Map<String, dynamic> json) =>
@@ -43,11 +43,14 @@ class RepositoryModel {
 
 @JsonSerializable()
 class Owner {
-  final String login;
+  final String? login;
   @JsonKey(name: 'avatar_url')
-  final String avatarUrl;
+  final String? avatarUrl;
 
-  const Owner({required this.login, required this.avatarUrl});
+  const Owner({
+    this.login,
+    this.avatarUrl,
+  });
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
 
@@ -56,10 +59,13 @@ class Owner {
 
 @JsonSerializable()
 class License {
-  final String key;
-  final String name;
+  final String? key;
+  final String? name;
 
-  const License({required this.key, required this.name});
+  const License({
+    this.key,
+    this.name,
+  });
 
   factory License.fromJson(Map<String, dynamic> json) =>
       _$LicenseFromJson(json);

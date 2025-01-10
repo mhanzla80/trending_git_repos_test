@@ -49,6 +49,6 @@ lib/
 │   │           ├── repo_item.dart       # Repository list item widget
 │   │           ├── shimmer_loader.dart  # Shimmer loading animation
 │   │           └── error_state_widget.dart # Error state with retry button
-└── pubspec.yaml                         # Dependency management file
+└── main.dart                         # main app file
 
 ```
